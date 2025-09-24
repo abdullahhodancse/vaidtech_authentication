@@ -132,4 +132,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
-# AUTH_USER_MODEL ='app1.User'
+AUTH_USER_MODEL ='app1.User'

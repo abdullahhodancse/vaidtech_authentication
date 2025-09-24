@@ -8,4 +8,7 @@ class patient(models.Model):
     disease=models.CharField(max_length=60)
 
     def __str__(self):
-        return f"{self.user.first_name}-{self.user.last_name}"
+        if self.user:
+            return f"{self.user.first_name}-{self.user.last_name}"
+        
+        return f"Patient (ID: {self.id})" 

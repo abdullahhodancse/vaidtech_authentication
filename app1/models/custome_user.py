@@ -44,27 +44,4 @@ class User(AbstractBaseUser,PermissionsMixin):
 
 
     
-    class Meta:
-        verbose_name = 'user'
-        verbose_name_plural = 'users'
-
-    def __str__(self):
-        return self.email
-
-    # PermissionsMixin এর groups ও user_permissions override করে related_name দিতে হবে
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_set',  # default clash avoid করার জন্য
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups'
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_set_permissions',  # default clash avoid
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions'
-    )
-
-        
+    
