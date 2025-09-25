@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app1.middleware.AutoLogout'
 ]
 
 ROOT_URLCONF = 'authentic.urls'
@@ -114,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+SESSION_COOKIE_AGE=5*60
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
 # Internationalization
