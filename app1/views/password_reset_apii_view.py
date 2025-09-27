@@ -14,11 +14,21 @@ class PasswordResetRequestAPIView(APIView):
         serializer = PasswordResetRequestSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data['email']
-            user = User.objects.get(email=email)
 
+           
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return Response(
+                    {"message": "Email not found"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
 
+            
             reset_url = request.build_absolute_uri(
                 reverse('password_reset_confirm_api', kwargs={'uidb64': uid, 'token': token})
             )
@@ -27,10 +37,14 @@ class PasswordResetRequestAPIView(APIView):
             send_mail(
                 subject="Password Reset",
                 message=f"Click the link to reset your password: {reset_url}",
-                from_email="your_email@example.com",
+                from_email="abdullahhodan448@gmail.com",  
                 recipient_list=[user.email],
                 fail_silently=False,
             )
 
-            return Response({"message": "Password reset email pathano hoise."}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "Password reset email pathano hoise."},
+                status=status.HTTP_200_OK
+            )
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
